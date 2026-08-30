@@ -64,12 +64,39 @@ function formatTimeSaved(originalSeconds, speedSeconds) {
   return `${mins}m saved`;
 }
 
+// Module-level in-memory cache for warm container invocations
+const CACHE_STORE = new Map();
+const CACHE_TTL_MS = 3600 * 1000; // 1 hour
+const MAX_CACHE_ENTRIES = 250;
+
+function getCachedPlaylist(playlistId) {
+  const entry = CACHE_STORE.get(playlistId);
+  if (!entry) return null;
+  if (Date.now() - entry.timestamp > CACHE_TTL_MS) {
+    CACHE_STORE.delete(playlistId);
+    return null;
+  }
+  return { ...entry.data, fromCache: true, cachedAt: entry.timestamp };
+}
+
+function setCachedPlaylist(playlistId, data) {
+  if (CACHE_STORE.size >= MAX_CACHE_ENTRIES) {
+    const oldestKey = CACHE_STORE.keys().next().value;
+    CACHE_STORE.delete(oldestKey);
+  }
+  CACHE_STORE.set(playlistId, {
+    data,
+    timestamp: Date.now()
+  });
+}
+
 exports.handler = async function(event, context) {
   const headers = {
     'Content-Type': 'application/json',
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS, GET'
+    'Access-Control-Allow-Methods': 'POST, OPTIONS, GET',
+    'Cache-Control': 'public, max-age=3600, s-maxage=3600'
   };
 
   if (event.httpMethod === 'OPTIONS') {
@@ -110,6 +137,16 @@ exports.handler = async function(event, context) {
       statusCode: 400,
       headers,
       body: JSON.stringify({ error: 'Invalid YouTube playlist URL or ID.' })
+    };
+  }
+
+  // 1. Check in-memory cache
+  const cached = getCachedPlaylist(playlistId);
+  if (cached) {
+    return {
+      statusCode: 200,
+      headers: { ...headers, 'X-Cache': 'HIT' },
+      body: JSON.stringify(cached)
     };
   }
 
@@ -328,9 +365,12 @@ exports.handler = async function(event, context) {
       videos: validVideos
     };
 
+    result.fromCache = false;
+    setCachedPlaylist(playlistId, result);
+
     return {
       statusCode: 200,
-      headers,
+      headers: { ...headers, 'X-Cache': 'MISS' },
       body: JSON.stringify(result)
     };
 

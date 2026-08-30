@@ -168,12 +168,52 @@ function setLoading(isLoading) {
   }
 }
 
+// Client-side Session Cache (1 hour TTL)
+const CLIENT_CACHE_TTL_MS = 3600 * 1000;
+
+function getClientCachedPlaylist(urlOrId) {
+  try {
+    const raw = sessionStorage.getItem('pp_cache_' + urlOrId.trim());
+    if (!raw) return null;
+    const entry = JSON.parse(raw);
+    if (Date.now() - entry.timestamp > CLIENT_CACHE_TTL_MS) {
+      sessionStorage.removeItem('pp_cache_' + urlOrId.trim());
+      return null;
+    }
+    return entry.data;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setClientCachedPlaylist(urlOrId, data) {
+  try {
+    sessionStorage.setItem('pp_cache_' + urlOrId.trim(), JSON.stringify({
+      data,
+      timestamp: Date.now()
+    }));
+  } catch (e) {
+    // Quota exceeded or private mode, fail gracefully
+  }
+}
+
 // Form Submission
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const playlistUrl = input.value.trim();
     if (!playlistUrl) return;
+
+    // 1. Check client-side session cache for zero-latency response
+    const cachedData = getClientCachedPlaylist(playlistUrl);
+    if (cachedData) {
+      playlistData = cachedData;
+      selectedVideoIndices = new Set(cachedData.videos.map((_, i) => i));
+      saveRecent(cachedData.playlist);
+      renderDashboard();
+      showToast('Playlist duration calculated successfully! ⚡');
+      return;
+    }
 
     setLoading(true);
     if (errorCard) errorCard.style.display = 'none';
@@ -194,6 +234,12 @@ if (form) {
       playlistData = data;
       selectedVideoIndices = new Set(data.videos.map((_, i) => i));
       
+      // Cache on client
+      setClientCachedPlaylist(playlistUrl, data);
+      if (data.playlist && data.playlist.id) {
+        setClientCachedPlaylist(data.playlist.id, data);
+      }
+
       saveRecent(data.playlist);
       renderDashboard();
       showToast('Playlist duration calculated successfully! ⚡');

@@ -4,6 +4,8 @@ import isodate
 from datetime import timedelta
 import re
 import os
+import time
+from threading import Lock
 from dotenv import load_dotenv
 
 # Load environment variables from .env file
@@ -15,6 +17,45 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, 'public'),
     static_url_path=''
 )
+
+
+class PlaylistCache:
+    """In-memory thread-safe TTL cache for YouTube playlist calculation results."""
+    def __init__(self, ttl_seconds=3600, max_entries=250):
+        self.ttl_seconds = ttl_seconds
+        self.max_entries = max_entries
+        self.cache = {}
+        self.lock = Lock()
+
+    def get(self, playlist_id):
+        with self.lock:
+            entry = self.cache.get(playlist_id)
+            if not entry:
+                return None
+            if time.time() - entry['timestamp'] > self.ttl_seconds:
+                self.cache.pop(playlist_id, None)
+                return None
+            data_copy = dict(entry['data'])
+            data_copy['fromCache'] = True
+            data_copy['cachedAt'] = entry['timestamp']
+            return data_copy
+
+    def set(self, playlist_id, data):
+        with self.lock:
+            if len(self.cache) >= self.max_entries:
+                oldest_key = min(self.cache.keys(), key=lambda k: self.cache[k]['timestamp'])
+                self.cache.pop(oldest_key, None)
+            self.cache[playlist_id] = {
+                'data': data,
+                'timestamp': time.time()
+            }
+
+    def clear(self):
+        with self.lock:
+            self.cache.clear()
+
+
+playlist_cache = PlaylistCache(ttl_seconds=3600, max_entries=250)
 
 
 def extract_playlist_id(url_or_id):
@@ -281,6 +322,15 @@ def get_playlist_duration():
     if not playlist_id:
         return jsonify({'error': 'Invalid YouTube playlist URL or ID. Make sure it contains "list=..." or is a valid playlist ID.'}), 400
 
+    # 1. Check in-memory cache
+    cached_result = playlist_cache.get(playlist_id)
+    if cached_result:
+        response = jsonify(cached_result)
+        response.headers['X-Cache'] = 'HIT'
+        response.headers['Cache-Control'] = 'public, max-age=3600'
+        return response, 200
+
+    # 2. Fetch from YouTube API
     result = fetch_playlist_data(playlist_id)
 
     if 'error' in result:
@@ -288,7 +338,15 @@ def get_playlist_duration():
 
     # Backward compatibility with legacy frontend expectation
     result['totalDuration'] = result['formatted']['verbose']
-    return jsonify(result)
+    result['fromCache'] = False
+
+    # 3. Store in cache
+    playlist_cache.set(playlist_id, result)
+
+    response = jsonify(result)
+    response.headers['X-Cache'] = 'MISS'
+    response.headers['Cache-Control'] = 'public, max-age=3600'
+    return response, 200
 
 if __name__ == '__main__':
     app.run(debug=True)
