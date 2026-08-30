@@ -49,6 +49,13 @@ function applyTheme(theme) {
   }
 }
 
+// Google Analytics Event Tracking Helper
+function trackEvent(eventName, params = {}) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
+  }
+}
+
 const savedTheme = localStorage.getItem('theme') || 'dark';
 applyTheme(savedTheme);
 
@@ -56,6 +63,7 @@ if (themeToggleBtn) {
   themeToggleBtn.addEventListener('click', () => {
     const nextTheme = isDarkMode ? 'light' : 'dark';
     applyTheme(nextTheme);
+    trackEvent('toggle_theme', { theme: nextTheme });
     showToast(`Switched to ${nextTheme} mode 🌓`);
   });
 }
@@ -242,6 +250,11 @@ if (form) {
 
       saveRecent(data.playlist);
       renderDashboard();
+      trackEvent('calculate_playlist', {
+        playlist_id: data.playlist.id,
+        video_count: data.videos.length,
+        total_seconds: data.totalSeconds
+      });
       showToast('Playlist duration calculated successfully! ⚡');
 
     } catch (err) {
@@ -596,6 +609,7 @@ if (copySummaryBtn) {
 — Calculated via PlayPulse`;
 
     navigator.clipboard.writeText(summary).then(() => {
+      trackEvent('copy_summary', { playlist_id: p.id });
       showToast('Formatted summary copied to clipboard! 📋');
     });
   });
