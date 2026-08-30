@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://playpulse-duration.netlify.app/sitemap.xml

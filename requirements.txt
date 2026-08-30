@@ -4,3 +4,4 @@ isodate>=0.6.1
 python-dotenv>=1.0.0
 serverless-wsgi>=3.0.0
 gunicorn>=21.2.0
+pytest>=8.0.0

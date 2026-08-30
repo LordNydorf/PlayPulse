@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, send_from_directory
 import requests
 import isodate
 from datetime import timedelta
@@ -12,9 +12,8 @@ load_dotenv()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 app = Flask(
     __name__,
-    template_folder=os.path.join(BASE_DIR, 'templates'),
-    static_folder=os.path.join(BASE_DIR, 'static'),
-    static_url_path='/static'
+    static_folder=os.path.join(BASE_DIR, 'public'),
+    static_url_path=''
 )
 
 
@@ -268,31 +267,7 @@ def fetch_playlist_data(playlist_id):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-@app.route('/favicon.ico')
-def favicon():
-    return app.send_static_file('favicon.ico')
-
-@app.route('/favicon.svg')
-def favicon_svg():
-    return app.send_static_file('favicon.svg')
-
-@app.route('/og-image.png')
-def og_image():
-    return app.send_static_file('og-image.png')
-
-@app.route('/robots.txt')
-def robots_txt():
-    return app.send_static_file('robots.txt')
-
-@app.route('/sitemap.xml')
-def sitemap_xml():
-    return app.send_static_file('sitemap.xml')
-
-@app.route('/site.webmanifest')
-def site_webmanifest():
-    return app.send_static_file('site.webmanifest')
+    return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/get_playlist_duration', methods=['POST'])
 def get_playlist_duration():
