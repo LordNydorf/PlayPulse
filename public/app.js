@@ -9,6 +9,7 @@ let activeSpeed = 1.0;
 let dailyMins = 60;
 let selectedVideoIndices = new Set();
 let isDarkMode = true;
+let lastFocusedElement = null;
 
 // Elements
 const form = document.getElementById('playlistForm');
@@ -29,6 +30,35 @@ const customSpeedDisplay = document.getElementById('customSpeedDisplay');
 const videoSearchInput = document.getElementById('videoSearchInput');
 const rangeStart = document.getElementById('rangeStart');
 const rangeEnd = document.getElementById('rangeEnd');
+const a11yStatus = document.getElementById('a11yStatus');
+
+// Screen reader dynamic announcement helper
+function announceStatus(message) {
+  if (a11yStatus) {
+    a11yStatus.textContent = '';
+    setTimeout(() => {
+      a11yStatus.textContent = message;
+    }, 50);
+  }
+}
+
+// Safe LocalStorage helpers
+function safeGetStorage(key, fallback = null) {
+  try {
+    const val = localStorage.getItem(key);
+    return val !== null ? val : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function safeSetStorage(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    // Fail gracefully in sandboxed / private modes
+  }
+}
 
 // Theme setup
 const themeToggleBtn = document.getElementById('themeToggleBtn');
@@ -37,7 +67,7 @@ const themeIconMoon = document.getElementById('themeIconMoon');
 
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem('theme', theme);
+  safeSetStorage('theme', theme);
   if (theme === 'light') {
     if (themeIconSun) themeIconSun.style.display = 'block';
     if (themeIconMoon) themeIconMoon.style.display = 'none';
@@ -56,7 +86,7 @@ function trackEvent(eventName, params = {}) {
   }
 }
 
-const savedTheme = localStorage.getItem('theme') || 'dark';
+const savedTheme = safeGetStorage('theme', 'dark');
 applyTheme(savedTheme);
 
 if (themeToggleBtn) {
@@ -64,7 +94,8 @@ if (themeToggleBtn) {
     const nextTheme = isDarkMode ? 'light' : 'dark';
     applyTheme(nextTheme);
     trackEvent('toggle_theme', { theme: nextTheme });
-    showToast(`Switched to ${nextTheme} mode 🌓`);
+    showToast(`Switched to ${nextTheme} mode`);
+    announceStatus(`Switched to ${nextTheme} mode`);
   });
 }
 
@@ -80,6 +111,7 @@ if (clearBtn) {
     input.value = '';
     clearBtn.style.display = 'none';
     input.focus();
+    announceStatus('Input cleared');
   });
 }
 
@@ -90,7 +122,7 @@ if (pasteBtn) {
       if (text) {
         input.value = text.trim();
         if (clearBtn) clearBtn.style.display = 'inline-flex';
-        showToast('Pasted URL from clipboard 📋');
+        showToast('Pasted URL from clipboard');
         form.dispatchEvent(new Event('submit'));
       }
     } catch (err) {
@@ -116,19 +148,21 @@ function showToast(message) {
   if (!toastContainer) return;
   const toast = document.createElement('div');
   toast.className = 'toast';
+  toast.setAttribute('role', 'alert');
   toast.innerHTML = `
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--accent-emerald);">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="color: var(--accent-emerald);" aria-hidden="true">
       <polyline points="20 6 9 17 4 12"></polyline>
     </svg>
     <span>${message}</span>
   `;
   toastContainer.appendChild(toast);
+  announceStatus(message);
   setTimeout(() => {
     toast.style.opacity = '0';
     toast.style.transform = 'translateY(10px)';
     toast.style.transition = 'all 0.3s ease';
     setTimeout(() => toast.remove(), 300);
-  }, 3000);
+  }, 3200);
 }
 
 // Format seconds helper
@@ -205,12 +239,38 @@ function setClientCachedPlaylist(urlOrId, data) {
   }
 }
 
+// Client-side URL pre-validation
+function validatePlaylistInput(urlOrId) {
+  const str = (urlOrId || '').trim();
+  if (!str) {
+    return { valid: false, message: 'Please enter a YouTube playlist URL or ID.' };
+  }
+  // Detect single video link without list parameter
+  if ((str.includes('youtube.com/watch') || str.includes('youtu.be/')) && !str.includes('list=')) {
+    return {
+      valid: false,
+      message: 'This link is for a single video. Please paste a YouTube playlist URL (with ?list=...) or playlist ID.'
+    };
+  }
+  return { valid: true };
+}
+
 // Form Submission
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const playlistUrl = input.value.trim();
     if (!playlistUrl) return;
+
+    // Client-side validation check
+    const validation = validatePlaylistInput(playlistUrl);
+    if (!validation.valid) {
+      if (errorMessageText) errorMessageText.textContent = validation.message;
+      if (errorCard) errorCard.style.display = 'block';
+      errorCard?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      showToast(validation.message);
+      return;
+    }
 
     // 1. Check client-side session cache for zero-latency response
     const cachedData = getClientCachedPlaylist(playlistUrl);
@@ -219,7 +279,8 @@ if (form) {
       selectedVideoIndices = new Set(cachedData.videos.map((_, i) => i));
       saveRecent(cachedData.playlist);
       renderDashboard();
-      showToast('Playlist duration calculated successfully! ⚡');
+      showToast('Playlist duration calculated successfully!');
+      announceStatus(`Playlist calculated: ${cachedData.playlist.title}`);
       return;
     }
 
@@ -255,12 +316,15 @@ if (form) {
         video_count: data.videos.length,
         total_seconds: data.totalSeconds
       });
-      showToast('Playlist duration calculated successfully! ⚡');
+      showToast('Playlist duration calculated successfully!');
+      announceStatus(`Playlist calculated: ${data.playlist.title}`);
 
     } catch (err) {
       if (errorMessageText) errorMessageText.textContent = err.message || 'Unable to fetch playlist data.';
       if (errorCard) errorCard.style.display = 'block';
       if (resultsDashboard) resultsDashboard.style.display = 'none';
+      errorCard?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      announceStatus(`Calculation failed: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -297,7 +361,7 @@ function renderDashboard() {
   const thumbEl = document.getElementById('playlistThumb');
   if (thumbEl) {
     thumbEl.src = p.thumbnail || (videos[0] ? videos[0].thumbnail : '');
-    thumbEl.alt = p.title;
+    thumbEl.alt = `Thumbnail for ${p.title}`;
   }
 
   const ytLink = document.getElementById('ytExternalLink');
@@ -348,7 +412,7 @@ function renderDashboard() {
   }
 }
 
-// Render Speed Matrix Cards
+// Render Speed Matrix Cards as Semantic Buttons
 function renderSpeedCards() {
   const grid = document.getElementById('speedsGrid');
   if (!grid) return;
@@ -369,11 +433,22 @@ function renderSpeedCards() {
     const fmt = formatSecs(adjSecs);
     const savedSecs = Math.max(0, currentTotalSecs - adjSecs);
     const savedFmt = formatSecs(savedSecs);
+    const isCurrent = Math.abs(activeSpeed - item.speed) < 0.01;
 
-    const card = document.createElement('div');
-    card.className = `speed-card ${activeSpeed === item.speed ? 'active' : ''}`;
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = `speed-card ${isCurrent ? 'active' : ''}`;
+    card.setAttribute('aria-pressed', isCurrent ? 'true' : 'false');
+    card.setAttribute('aria-label', `${item.label} speed: ${fmt.text}${item.speed > 1.0 ? `, saves ${savedFmt.hours > 0 ? savedFmt.hours + 'h ' : ''}${savedFmt.minutes}m` : ''}`);
+
     card.innerHTML = `
-      ${item.isPopular ? '<div class="speed-popular-tag">🔥 Popular</div>' : ''}
+      ${item.isPopular ? `
+        <div class="speed-popular-tag">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span>Popular</span>
+        </div>` : ''}
       <div class="speed-badge">${item.label}</div>
       <div class="speed-time">${fmt.text}</div>
       <div class="speed-saved">${item.speed === 1.0 ? 'Standard' : `Save ${savedFmt.hours > 0 ? savedFmt.hours + 'h ' : ''}${savedFmt.minutes}m`}</div>
@@ -383,9 +458,14 @@ function renderSpeedCards() {
       activeSpeed = item.speed;
       if (customSpeedSlider) customSpeedSlider.value = item.speed;
       if (customSpeedDisplay) customSpeedDisplay.textContent = `${item.speed.toFixed(2)}x`;
-      document.querySelectorAll('.speed-card').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.speed-card').forEach(c => {
+        c.classList.remove('active');
+        c.setAttribute('aria-pressed', 'false');
+      });
       card.classList.add('active');
+      card.setAttribute('aria-pressed', 'true');
       updateActiveTime();
+      announceStatus(`Playback speed set to ${item.label}`);
     });
 
     grid.appendChild(card);
@@ -460,25 +540,40 @@ if (customSpeedSlider) {
     if (customSpeedDisplay) customSpeedDisplay.textContent = `${val.toFixed(2)}x`;
     document.querySelectorAll('.speed-card').forEach(c => {
       const badge = c.querySelector('.speed-badge');
-      c.classList.toggle('active', badge && badge.textContent === `${val}x`);
+      const matches = badge && badge.textContent === `${val}x`;
+      c.classList.toggle('active', matches);
+      c.setAttribute('aria-pressed', matches ? 'true' : 'false');
     });
     updateActiveTime();
   });
 }
 
-// Study Plan Calculator
+// Study Plan Calculator with Edge Case & Year Support
 function updateStudyPlan(totalSecs) {
+  const daysCountEl = document.getElementById('studyDaysCount');
+  const finishDateEl = document.getElementById('studyFinishDate');
+
+  if (totalSecs === 0) {
+    if (daysCountEl) daysCountEl.textContent = '0';
+    if (finishDateEl) finishDateEl.textContent = 'Target completion: Select at least 1 video';
+    return;
+  }
+
   const totalMinutes = totalSecs / 60;
   const daysNeeded = (totalMinutes / dailyMins).toFixed(1);
-  const daysCountEl = document.getElementById('studyDaysCount');
   if (daysCountEl) daysCountEl.textContent = daysNeeded;
 
   const finishDate = new Date();
+  const currentYear = finishDate.getFullYear();
   finishDate.setDate(finishDate.getDate() + Math.ceil(parseFloat(daysNeeded)));
-  const options = { weekday: 'short', month: 'short', day: 'numeric' };
-  const finishDateEl = document.getElementById('studyFinishDate');
+  
+  const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
+  if (finishDate.getFullYear() > currentYear) {
+    dateOptions.year = 'numeric';
+  }
+
   if (finishDateEl) {
-    finishDateEl.textContent = `Target completion by: ${finishDate.toLocaleDateString(undefined, options)}`;
+    finishDateEl.textContent = `Target completion: ${finishDate.toLocaleDateString(undefined, dateOptions)}`;
   }
 }
 
@@ -490,16 +585,38 @@ document.querySelectorAll('.study-chip').forEach(chip => {
     const label = document.getElementById('dailyTimeLabel');
     if (label) label.textContent = `${dailyMins} minutes/day`;
     updateActiveTime();
+    announceStatus(`Daily study time set to ${dailyMins} minutes per day`);
   });
 });
 
-// Range Filter Logic
+// Range Filter Logic with Validation
 const rangeApplyBtn = document.getElementById('rangeApplyBtn');
 if (rangeApplyBtn) {
   rangeApplyBtn.addEventListener('click', () => {
     if (!playlistData) return;
-    const start = Math.max(1, parseInt(rangeStart.value, 10) || 1);
-    const end = Math.min(playlistData.videos.length, parseInt(rangeEnd.value, 10) || playlistData.videos.length);
+    const maxVideos = playlistData.videos.length;
+    const start = parseInt(rangeStart.value, 10);
+    const end = parseInt(rangeEnd.value, 10);
+
+    if (isNaN(start) || isNaN(end)) {
+      showToast('Please enter valid start and end video numbers.');
+      return;
+    }
+
+    if (start < 1) {
+      showToast('Start video number must be at least 1.');
+      return;
+    }
+
+    if (end > maxVideos) {
+      showToast(`End video number cannot exceed total videos (${maxVideos}).`);
+      return;
+    }
+
+    if (start > end) {
+      showToast(`Start number (#${start}) cannot be greater than end number (#${end}).`);
+      return;
+    }
 
     selectedVideoIndices.clear();
     for (let i = start - 1; i <= end - 1; i++) {
@@ -509,7 +626,8 @@ if (rangeApplyBtn) {
     renderSpeedCards();
     renderVideoList();
     updateActiveTime();
-    showToast(`Applied range: Videos #${start} to #${end} 🎯`);
+    showToast(`Applied range: Videos #${start} to #${end}`);
+    announceStatus(`Calculated range for videos #${start} to #${end}`);
   });
 }
 
@@ -523,27 +641,30 @@ if (rangeResetBtn) {
     renderSpeedCards();
     renderVideoList();
     updateActiveTime();
-    showToast('Reset to all videos 🔄');
+    showToast('Reset to all videos');
+    announceStatus('Reset to all videos');
   });
 }
 
-// Render Video List
+// Render Video List with Dynamic Badges & Accessible Checkboxes
 function renderVideoList() {
   const container = document.getElementById('videoItemsList');
   if (!container || !playlistData) return;
   container.innerHTML = '';
   const filter = videoSearchInput ? videoSearchInput.value.toLowerCase().trim() : '';
 
+  let visibleCount = 0;
   playlistData.videos.forEach((v, idx) => {
     if (filter && !v.title.toLowerCase().includes(filter)) return;
+    visibleCount++;
 
     const isChecked = selectedVideoIndices.has(idx);
     const item = document.createElement('div');
     item.className = 'video-item';
     item.innerHTML = `
-      <input type="checkbox" class="video-checkbox" data-index="${idx}" ${isChecked ? 'checked' : ''} style="cursor:pointer; width:16px; height:16px; accent-color: var(--brand-yt);" />
+      <input type="checkbox" class="video-checkbox" data-index="${idx}" ${isChecked ? 'checked' : ''} aria-label="Include video #${v.position}: ${v.title.replace(/"/g, '&quot;')}" style="cursor:pointer; width:18px; height:18px; accent-color: var(--brand-yt);" />
       <span class="video-pos">#${v.position}</span>
-      <img src="${v.thumbnail || ''}" alt="" class="video-thumb-small" loading="lazy" />
+      <img src="${v.thumbnail || ''}" alt="" class="video-thumb-small" loading="lazy" aria-hidden="true" />
       <div class="video-title-wrap">
         <a href="https://www.youtube.com/watch?v=${v.id}&list=${playlistData.playlist.id}" target="_blank" rel="noopener noreferrer" class="video-title" title="${v.title}">
           ${v.title}
@@ -567,6 +688,15 @@ function renderVideoList() {
 
     container.appendChild(item);
   });
+
+  const badgeEl = document.getElementById('videoListBadge');
+  if (badgeEl) {
+    if (filter) {
+      badgeEl.textContent = `${visibleCount} of ${playlistData.videos.length} videos`;
+    } else {
+      badgeEl.textContent = `${playlistData.videos.length} videos`;
+    }
+  }
 }
 
 if (videoSearchInput) {
@@ -586,6 +716,7 @@ if (header && drawer && chevron) {
     drawerOpen = !drawerOpen;
     drawer.style.display = drawerOpen ? 'block' : 'none';
     chevron.style.transform = drawerOpen ? 'rotate(0deg)' : 'rotate(-90deg)';
+    header.setAttribute('aria-expanded', drawerOpen ? 'true' : 'false');
   });
 }
 
@@ -599,18 +730,23 @@ if (copySummaryBtn) {
     const normal = formatSecs(baseSecs);
     const at15 = formatSecs(baseSecs / 1.5);
     const at20 = formatSecs(baseSecs / 2.0);
+    const atActive = formatSecs(baseSecs / activeSpeed);
+    const savedAtActive = formatSecs(Math.max(0, baseSecs - baseSecs / activeSpeed));
 
-    const summary = `🎬 ${p.title} (${selectedVideoIndices.size} videos)
-👤 Channel: ${p.channelTitle}
-⏱️ Normal (1.0x): ${normal.text}
-⚡ 1.5x Speed: ${at15.text} (Save ${formatSecs(baseSecs - baseSecs/1.5).text})
-🔥 2.0x Speed: ${at20.text} (Save ${formatSecs(baseSecs - baseSecs/2.0).text})
-🔗 https://www.youtube.com/playlist?list=${p.id}
-— Calculated via PlayPulse`;
+    let summary = `🎬 ${p.title} (${selectedVideoIndices.size} of ${playlistData.videos.length} videos)\n`;
+    summary += `👤 Channel: ${p.channelTitle}\n`;
+    summary += `⏱️ Normal (1.0x): ${normal.text}\n`;
+    if (Math.abs(activeSpeed - 1.0) > 0.01 && Math.abs(activeSpeed - 1.5) > 0.01 && Math.abs(activeSpeed - 2.0) > 0.01) {
+      summary += `⚡ Selected (${activeSpeed.toFixed(2)}x Speed): ${atActive.text} (Save ${savedAtActive.text})\n`;
+    }
+    summary += `⚡ 1.5x Speed: ${at15.text} (Save ${formatSecs(baseSecs - baseSecs/1.5).text})\n`;
+    summary += `🔥 2.0x Speed: ${at20.text} (Save ${formatSecs(baseSecs - baseSecs/2.0).text})\n`;
+    summary += `🔗 https://www.youtube.com/playlist?list=${p.id}\n`;
+    summary += `— Calculated via PlayPulse`;
 
     navigator.clipboard.writeText(summary).then(() => {
       trackEvent('copy_summary', { playlist_id: p.id });
-      showToast('Formatted summary copied to clipboard! 📋');
+      showToast('Formatted summary copied to clipboard!');
     });
   });
 }
@@ -626,48 +762,64 @@ if (resetBtn) {
     }
     if (clearBtn) clearBtn.style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    announceStatus('Reset to start');
   });
 }
 
-// Recents in localStorage
+// Recents in localStorage with SVG Clock Icon
 function saveRecent(playlist) {
-  let recents = JSON.parse(localStorage.getItem('recent_playlists') || '[]');
-  recents = recents.filter(r => r.id !== playlist.id);
-  recents.unshift({
-    id: playlist.id,
-    title: playlist.title,
-    videoCount: playlist.videoCount
-  });
-  recents = recents.slice(0, 4);
-  localStorage.setItem('recent_playlists', JSON.stringify(recents));
-  renderRecents();
+  try {
+    let recents = JSON.parse(safeGetStorage('recent_playlists', '[]'));
+    recents = recents.filter(r => r.id !== playlist.id);
+    recents.unshift({
+      id: playlist.id,
+      title: playlist.title,
+      videoCount: playlist.videoCount
+    });
+    recents = recents.slice(0, 4);
+    safeSetStorage('recent_playlists', JSON.stringify(recents));
+    renderRecents();
+  } catch (e) {
+    // Fail gracefully
+  }
 }
 
 function renderRecents() {
   if (!recentsBar) return;
-  const recents = JSON.parse(localStorage.getItem('recent_playlists') || '[]');
-  if (!recents.length) {
-    recentsBar.style.display = 'none';
-    return;
-  }
-  recentsBar.innerHTML = '<span class="preset-label">Recent:</span>';
-  recents.forEach(r => {
-    const btn = document.createElement('button');
-    btn.className = 'preset-chip';
-    btn.innerHTML = `<span>🕒</span> ${r.title.length > 25 ? r.title.substring(0, 25) + '...' : r.title} (${r.videoCount})`;
-    btn.addEventListener('click', () => {
-      if (input) {
-        input.value = `https://www.youtube.com/playlist?list=${r.id}`;
-        if (clearBtn) clearBtn.style.display = 'inline-flex';
-        form.dispatchEvent(new Event('submit'));
-      }
+  try {
+    const recents = JSON.parse(safeGetStorage('recent_playlists', '[]'));
+    if (!recents.length) {
+      recentsBar.style.display = 'none';
+      return;
+    }
+    recentsBar.innerHTML = '<span class="preset-label">Recent:</span>';
+    recents.forEach(r => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'preset-chip';
+      btn.innerHTML = `
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+        <span>${r.title.length > 25 ? r.title.substring(0, 25) + '...' : r.title} (${r.videoCount})</span>
+      `;
+      btn.addEventListener('click', () => {
+        if (input) {
+          input.value = `https://www.youtube.com/playlist?list=${r.id}`;
+          if (clearBtn) clearBtn.style.display = 'inline-flex';
+          form.dispatchEvent(new Event('submit'));
+        }
+      });
+      recentsBar.appendChild(btn);
     });
-    recentsBar.appendChild(btn);
-  });
-  recentsBar.style.display = 'flex';
+    recentsBar.style.display = 'flex';
+  } catch (e) {
+    recentsBar.style.display = 'none';
+  }
 }
 
-// Legal Modal Logic
+// Legal Modal Logic with Focus Trap & Inert
 const legalModal = document.getElementById('legalModal');
 const openPrivacyModalBtn = document.getElementById('openPrivacyModalBtn');
 const closeModalBtn = document.getElementById('closeModalBtn');
@@ -675,14 +827,21 @@ const modalOkBtn = document.getElementById('modalOkBtn');
 
 function openModal() {
   if (!legalModal) return;
+  lastFocusedElement = document.activeElement;
   legalModal.classList.add('active');
   legalModal.setAttribute('aria-hidden', 'false');
+  document.querySelector('.app-wrapper')?.setAttribute('inert', '');
+  closeModalBtn?.focus();
 }
 
 function closeModal() {
   if (!legalModal) return;
   legalModal.classList.remove('active');
   legalModal.setAttribute('aria-hidden', 'true');
+  document.querySelector('.app-wrapper')?.removeAttribute('inert');
+  if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+    lastFocusedElement.focus();
+  }
 }
 
 if (openPrivacyModalBtn) openPrivacyModalBtn.addEventListener('click', openModal);
@@ -692,9 +851,26 @@ if (legalModal) {
   legalModal.addEventListener('click', (e) => {
     if (e.target === legalModal) closeModal();
   });
+  legalModal.addEventListener('keydown', (e) => {
+    if (e.key === 'Tab') {
+      const focusable = legalModal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        last.focus();
+        e.preventDefault();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        first.focus();
+        e.preventDefault();
+      }
+    }
+  });
 }
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && legalModal && legalModal.classList.contains('active')) closeModal();
+  if (e.key === 'Escape' && legalModal && legalModal.classList.contains('active')) {
+    closeModal();
+  }
 });
 
 // Initialize recents on page load

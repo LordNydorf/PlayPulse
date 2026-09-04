@@ -3,8 +3,6 @@
    Ultra-Modern, Sexy Design System
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
-
 :root {
   /* Color Palette - Dark Luxe (Default) */
   --bg-base: #07090e;
@@ -68,8 +66,8 @@
   --border-focus: rgba(255, 0, 51, 0.4);
   
   --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-tertiary: #94a3b8;
+  --text-secondary: #334155;
+  --text-tertiary: #64748b;
   --text-inverse: #ffffff;
   
   --brand-glow: 0 0 30px rgba(255, 0, 51, 0.2);
@@ -91,7 +89,25 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
   font-size: 16px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand-yt);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 body {
@@ -916,6 +932,14 @@ body {
   transition: all var(--transition-fast);
   position: relative;
   overflow: hidden;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .speed-card:hover {
@@ -1236,18 +1260,31 @@ body {
 }
 
 .video-list-header {
+  width: 100%;
   padding: 1.25rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: var(--bg-surface);
+  border: none;
   border-bottom: 1px solid var(--border-subtle);
   cursor: pointer;
   user-select: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  text-align: left;
+  transition: background var(--transition-fast);
 }
 
 .video-list-header:hover {
   background: var(--bg-card-hover);
+}
+
+.video-list-title-text {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 .video-list-title-group {
@@ -1816,6 +1853,27 @@ body {
   }
   .btn-primary {
     width: 100%;
+    min-height: 44px;
+  }
+  .tool-btn,
+  .preset-chip,
+  .study-chip,
+  .range-inputs .btn-secondary {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+  .range-inputs {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .range-num-input {
+    min-height: 44px;
+  }
+  .video-checkbox {
+    min-width: 22px;
+    min-height: 22px;
   }
   .digit-value {
     font-size: 2.2rem;
@@ -1826,5 +1884,35 @@ body {
     left: 1rem;
     right: 1rem;
     bottom: 1rem;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ambient-glow,
+  .glow-orb-1,
+  .glow-orb-2,
+  .glow-orb-3 {
+    display: none !important;
+  }
+
+  .hero-badge,
+  .error-card,
+  .toast,
+  #resultsDashboard,
+  .modal-card {
+    animation: none !important;
+    transform: none !important;
   }
 }

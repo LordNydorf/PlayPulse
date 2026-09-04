@@ -206,29 +206,33 @@
               id="playlistUrl" 
               class="search-input" 
               placeholder="Paste YouTube playlist URL or ID (e.g. https://youtube.com/playlist?list=...)" 
+              aria-label="YouTube playlist URL or ID"
               required
               autocomplete="off"
               spellcheck="false"
             />
             <div class="input-tool-actions">
-              <button type="button" id="pasteBtn" class="tool-btn" title="Paste from clipboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <button type="button" id="pasteBtn" class="tool-btn" title="Paste from clipboard" aria-label="Paste playlist URL from clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                   <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                 </svg>
                 <span>Paste</span>
               </button>
-              <button type="button" id="clearBtn" class="tool-btn" style="display:none;" title="Clear input">
-                ✕
+              <button type="button" id="clearBtn" class="tool-btn" style="display:none;" title="Clear input" aria-label="Clear input">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
               </button>
             </div>
-            <button type="submit" id="submitBtn" class="btn-primary">
+            <button type="submit" id="submitBtn" class="btn-primary" aria-label="Calculate playlist duration">
               <span id="btnText">Calculate Time</span>
-              <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
-              <span id="btnSpinner" class="spinner" style="display:none;"></span>
+              <span id="btnSpinner" class="spinner" style="display:none;" aria-hidden="true"></span>
             </button>
           </form>
         </div>
@@ -237,13 +241,29 @@
         <div class="preset-container">
           <span class="preset-label">Try Demo:</span>
           <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM">
-            <span>🥋</span> Go Tutorial (Net Ninja)
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <span>Go Tutorial (Net Ninja)</span>
           </button>
           <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PLillGF-RfqbYeckUaD1z6nE_456_789">
-            <span>💻</span> Web Dev Crash Course
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+              <line x1="8" y1="21" x2="16" y2="21"></line>
+              <line x1="12" y1="17" x2="12" y2="21"></line>
+            </svg>
+            <span>Web Dev Crash Course</span>
           </button>
           <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PL2fnLEX043CR0_8xT6_o1sLz8f8yM9_tP">
-            <span>☕</span> Lofi Study Beats
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+            <span>Lofi Study Beats</span>
           </button>
         </div>
 
@@ -398,7 +418,7 @@
           </div>
           <div class="custom-speed-slider-wrap">
             <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-tertiary);">0.5x</span>
-            <input type="range" id="customSpeedSlider" class="range-slider" min="0.5" max="3.0" step="0.05" value="1.0">
+            <input type="range" id="customSpeedSlider" class="range-slider" min="0.5" max="3.0" step="0.05" value="1.0" aria-label="Adjust playback speed multiplier from 0.5x to 3.0x">
             <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-tertiary);">3.0x</span>
           </div>
           <div class="custom-speed-val" id="customSpeedDisplay">1.00x</div>
@@ -465,9 +485,9 @@
           </div>
           <div class="range-inputs">
             <span style="font-size: 0.85rem; color: var(--text-secondary);">From #</span>
-            <input type="number" id="rangeStart" class="range-num-input" min="1" value="1">
+            <input type="number" id="rangeStart" class="range-num-input" min="1" value="1" aria-label="Start video index number">
             <span style="font-size: 0.85rem; color: var(--text-secondary);">to #</span>
-            <input type="number" id="rangeEnd" class="range-num-input" min="1" value="1">
+            <input type="number" id="rangeEnd" class="range-num-input" min="1" value="1" aria-label="End video index number">
             <button type="button" id="rangeApplyBtn" class="btn-secondary" style="padding: 0.4rem 0.85rem;">
               Apply Range
             </button>
@@ -537,7 +557,7 @@
 
         <!-- Video List Drawer -->
         <div class="video-list-container">
-          <div class="video-list-header" id="videoListHeader">
+          <button type="button" class="video-list-header" id="videoListHeader" aria-expanded="true" aria-controls="videoListDrawer">
             <div class="video-list-title-group">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <line x1="8" y1="6" x2="21" y2="6"></line>
@@ -547,21 +567,21 @@
                 <line x1="3" y1="12" x2="3.01" y2="12"></line>
                 <line x1="3" y1="18" x2="3.01" y2="18"></line>
               </svg>
-              <h3 style="font-size: 1rem; font-weight: 700;">Individual Videos Breakdown</h3>
+              <span class="video-list-title-text">Individual Videos Breakdown</span>
               <span class="list-count-badge" id="videoListBadge">0</span>
             </div>
-            <svg id="chevronIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.2s;">
+            <svg id="chevronIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.2s;" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
+          </button>
 
           <div id="videoListDrawer" style="display:block;">
             <div class="video-search-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-tertiary);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-tertiary);" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <input type="text" id="videoSearchInput" class="video-search-input" placeholder="Filter videos in this playlist by title..." />
+              <input type="text" id="videoSearchInput" class="video-search-input" placeholder="Filter videos in this playlist by title..." aria-label="Filter videos in this playlist by title" />
             </div>
 
             <div class="video-items-scroll" id="videoItemsList">
@@ -776,7 +796,14 @@
         </div>
         <div class="footer-links">
           <a href="https://buymeacoffee.com/lordnydorf" target="_blank" rel="noopener noreferrer" class="footer-bmac-link">
-            <span>☕</span> Buy Me a Coffee
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+              <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+              <line x1="6" y1="1" x2="6" y2="4"></line>
+              <line x1="10" y1="1" x2="10" y2="4"></line>
+              <line x1="14" y1="1" x2="14" y2="4"></line>
+            </svg>
+            <span>Buy Me a Coffee</span>
           </a>
           <span class="footer-separator">•</span>
           <button type="button" id="openPrivacyModalBtn" class="footer-modal-link">Privacy &amp; Terms</button>
@@ -787,12 +814,20 @@
     </footer>
   </div>
 
+  <!-- Screen Reader Live Status Region -->
+  <div id="a11yStatus" class="sr-only" role="status" aria-live="polite"></div>
+
   <!-- Privacy & Terms Modal -->
   <div id="legalModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
       <div class="modal-header">
         <h3 id="modalTitle" class="modal-title">Privacy Policy &amp; Terms</h3>
-        <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Close modal">✕</button>
+        <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Close privacy and terms modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
       </div>
       <div class="modal-body">
         <h4>1. YouTube API Services</h4>
@@ -814,7 +849,7 @@
   </div>
 
   <!-- Toast Notification Container -->
-  <div class="toast-container" id="toastContainer"></div>
+  <div class="toast-container" id="toastContainer" role="log" aria-live="polite"></div>
 
   <script src="/app.js" defer></script>
 </body>
