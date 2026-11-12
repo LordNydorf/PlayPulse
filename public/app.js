@@ -456,7 +456,10 @@ function renderSpeedCards() {
 
     card.addEventListener('click', () => {
       activeSpeed = item.speed;
-      if (customSpeedSlider) customSpeedSlider.value = item.speed;
+      if (customSpeedSlider) {
+        customSpeedSlider.value = item.speed;
+        updateCustomSpeedSliderFill(item.speed);
+      }
       if (customSpeedDisplay) customSpeedDisplay.textContent = `${item.speed.toFixed(2)}x`;
       document.querySelectorAll('.speed-card').forEach(c => {
         c.classList.remove('active');
@@ -532,11 +535,23 @@ function updateActiveTime() {
   updateStudyPlan(effectiveSecs);
 }
 
+
+// Update dynamic slider track progress fill
+function updateCustomSpeedSliderFill(val) {
+  if (!customSpeedSlider) return;
+  const current = val !== undefined ? parseFloat(val) : parseFloat(customSpeedSlider.value || 1.0);
+  const min = parseFloat(customSpeedSlider.min) || 0.5;
+  const max = parseFloat(customSpeedSlider.max) || 3.0;
+  const pct = Math.min(100, Math.max(0, ((current - min) / (max - min)) * 100));
+  customSpeedSlider.style.setProperty('--slider-fill', `${pct}%`);
+}
+
 // Custom Slider listener
 if (customSpeedSlider) {
   customSpeedSlider.addEventListener('input', (e) => {
     const val = parseFloat(e.target.value);
     activeSpeed = val;
+    updateCustomSpeedSliderFill(val);
     if (customSpeedDisplay) customSpeedDisplay.textContent = `${val.toFixed(2)}x`;
     document.querySelectorAll('.speed-card').forEach(c => {
       const badge = c.querySelector('.speed-badge');
@@ -761,6 +776,12 @@ if (resetBtn) {
       input.focus();
     }
     if (clearBtn) clearBtn.style.display = 'none';
+    activeSpeed = 1.0;
+    if (customSpeedSlider) {
+      customSpeedSlider.value = 1.0;
+      updateCustomSpeedSliderFill(1.0);
+    }
+    if (customSpeedDisplay) customSpeedDisplay.textContent = '1.00x';
     window.scrollTo({ top: 0, behavior: 'smooth' });
     announceStatus('Reset to start');
   });
@@ -875,3 +896,34 @@ document.addEventListener('keydown', (e) => {
 
 // Initialize recents on page load
 renderRecents();
+
+// =============================================================================
+// Scroll-Triggered Entrance Animations (ProjectX-inspired)
+// =============================================================================
+(function initReveal() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) return;
+
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (!revealEls.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target); // fire once
+        }
+      });
+    },
+    {
+      threshold: 0.12,
+      rootMargin: '0px 0px -48px 0px',
+    }
+  );
+
+  revealEls.forEach((el) => observer.observe(el));
+})();
+
+// Initialize slider track fill
+updateCustomSpeedSliderFill(1.0);

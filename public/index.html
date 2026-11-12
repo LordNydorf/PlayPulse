@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PlayPulse — YouTube Playlist Duration & Speed Calculator</title>
-  <meta name="description" content="Calculate total duration, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly. Fast, free, and accurate.">
-  <meta name="keywords" content="youtube playlist duration calculator, youtube playlist length, youtube watch time, playlist speed calculator, study schedule planner, video duration, youtube course time">
+  <meta name="description"
+    content="Calculate total duration, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly. Fast, free, and accurate.">
+  <meta name="keywords"
+    content="youtube playlist duration calculator, youtube playlist length, youtube watch time, playlist speed calculator, study schedule planner, video duration, youtube course time">
   <meta name="theme-color" content="#ff0033">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://playpulse-duration.netlify.app/">
@@ -15,7 +18,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JCXLLQ6MJF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-JCXLLQ6MJF');
@@ -26,7 +29,8 @@
   <meta property="og:url" content="https://playpulse-duration.netlify.app/">
   <meta property="og:site_name" content="PlayPulse">
   <meta property="og:title" content="PlayPulse — YouTube Playlist Duration & Speed Calculator">
-  <meta property="og:description" content="Calculate total runtime, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly.">
+  <meta property="og:description"
+    content="Calculate total runtime, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly.">
   <meta property="og:image" content="https://playpulse-duration.netlify.app/og-image.png">
   <meta property="og:image:alt" content="PlayPulse - YouTube Playlist Duration & Speed Calculator">
   <meta property="og:image:width" content="1200">
@@ -36,7 +40,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://playpulse-duration.netlify.app/">
   <meta name="twitter:title" content="PlayPulse — YouTube Playlist Duration & Speed Calculator">
-  <meta name="twitter:description" content="Calculate total runtime, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly.">
+  <meta name="twitter:description"
+    content="Calculate total runtime, multi-speed watch times (1.25x–2.0x), and study schedules for any YouTube playlist instantly.">
   <meta name="twitter:image" content="https://playpulse-duration.netlify.app/og-image.png">
 
   <!-- Structured Data: WebApplication & FAQPage JSON-LD -->
@@ -110,14 +115,17 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <link rel="alternate icon" type="image/x-icon" href="/favicon.ico">
   <link rel="apple-touch-icon" href="/favicon.png">
-  
+
   <!-- Modern Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="manifest" href="/site.webmanifest">
   <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
 
   <!-- Ambient Glow Atmosphere -->
@@ -134,29 +142,26 @@
       <div class="container nav-content">
         <a href="/" class="brand-logo" id="logoLink">
           <div class="logo-icon-wrapper">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
             </svg>
           </div>
           <span class="logo-text">Play<span>Pulse</span></span>
         </a>
 
-        <div class="nav-badges">
-          <div class="version-pill">
-            <span class="status-dot"></span>
-            <span>API v3 Live</span>
-          </div>
-        </div>
-
         <div class="nav-actions">
-          <a href="https://buymeacoffee.com/lordnydorf" target="_blank" rel="noopener noreferrer" class="bmac-btn" title="Support the creator">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM2 19h20v2H2z"/>
+          <a href="https://buymeacoffee.com/lordnydorf" target="_blank" rel="noopener noreferrer" class="bmac-btn" aria-label="Support the creator on Buy Me a Coffee"
+            title="Support the creator">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM2 19h20v2H2z" />
             </svg>
             <span>Buy Me a Coffee</span>
           </a>
           <button id="themeToggleBtn" class="icon-btn" aria-label="Toggle light/dark theme" title="Toggle theme">
-            <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+            <svg id="themeIconSun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;" aria-hidden="true">
               <circle cx="12" cy="12" r="5"></circle>
               <line x1="12" y1="1" x2="12" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -167,7 +172,8 @@
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
             </svg>
-            <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg id="themeIconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
             </svg>
           </button>
@@ -179,48 +185,41 @@
     <main class="container">
       <!-- Hero Header -->
       <section class="hero-section">
-        <div class="hero-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-          </svg>
-          <span>Ultra-Fast Duration Engine</span>
-        </div>
-        <h1 class="hero-title">
+        <h1 class="hero-title" data-reveal data-delay="1">
           Know Exactly How Long Any <br>
           <span class="hero-title-gradient">Playlist Will Take to Finish</span>
         </h1>
-        <p class="hero-subtitle">
-          Paste any YouTube playlist link to calculate total runtime, time saved at 1.25x–2.0x playback speeds, and customize your study schedule.
+        <p class="hero-subtitle" data-reveal data-delay="2">
+          Paste any YouTube playlist link to calculate total runtime, time saved at 1.25x–2.0x playback speeds, and
+          customize your study schedule.
         </p>
 
         <!-- Search Bar Command Center -->
-        <div class="search-container">
+        <div class="search-container" data-reveal data-delay="3">
           <form id="playlistForm" class="search-box-glass">
             <div class="search-icon-left">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path
+                  d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
               </svg>
             </div>
-            <input 
-              type="text" 
-              id="playlistUrl" 
-              class="search-input" 
-              placeholder="Paste YouTube playlist URL or ID (e.g. https://youtube.com/playlist?list=...)" 
-              aria-label="YouTube playlist URL or ID"
-              required
-              autocomplete="off"
-              spellcheck="false"
-            />
+            <input type="text" id="playlistUrl" class="search-input"
+              placeholder="Paste YouTube playlist URL or ID (e.g. https://youtube.com/playlist?list=...)"
+              aria-label="YouTube playlist URL or ID" required autocomplete="off" spellcheck="false" />
             <div class="input-tool-actions">
-              <button type="button" id="pasteBtn" class="tool-btn" title="Paste from clipboard" aria-label="Paste playlist URL from clipboard">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <button type="button" id="pasteBtn" class="tool-btn" title="Paste from clipboard"
+                aria-label="Paste playlist URL from clipboard">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                   <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                 </svg>
                 <span>Paste</span>
               </button>
-              <button type="button" id="clearBtn" class="tool-btn" style="display:none;" title="Clear input" aria-label="Clear input">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <button type="button" id="clearBtn" class="tool-btn" style="display:none;" title="Clear input"
+                aria-label="Clear input">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
@@ -228,7 +227,8 @@
             </div>
             <button type="submit" id="submitBtn" class="btn-primary" aria-label="Calculate playlist duration">
               <span id="btnText">Calculate Time</span>
-              <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line>
                 <polyline points="12 5 19 12 12 19"></polyline>
               </svg>
@@ -238,25 +238,31 @@
         </div>
 
         <!-- Preset Chips -->
-        <div class="preset-container">
+        <div class="preset-container" data-reveal data-delay="4">
           <span class="preset-label">Try Demo:</span>
-          <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button type="button" class="preset-chip"
+            data-url="https://www.youtube.com/playlist?list=PL4cUxeGkcC9gC88BEo9czgyS72A3doDeM">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <polyline points="16 18 22 12 16 6"></polyline>
               <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
             <span>Go Tutorial (Net Ninja)</span>
           </button>
-          <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PLillGF-RfqbYeckUaD1z6nE_456_789">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button type="button" class="preset-chip"
+            data-url="https://www.youtube.com/playlist?list=PLillGF-RfqbYeckUaD1z6nE_456_789">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
               <line x1="8" y1="21" x2="16" y2="21"></line>
               <line x1="12" y1="17" x2="12" y2="21"></line>
             </svg>
             <span>Web Dev Crash Course</span>
           </button>
-          <button type="button" class="preset-chip" data-url="https://www.youtube.com/playlist?list=PL2fnLEX043CR0_8xT6_o1sLz8f8yM9_tP">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <button type="button" class="preset-chip"
+            data-url="https://www.youtube.com/playlist?list=PL2fnLEX043CR0_8xT6_o1sLz8f8yM9_tP">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
               <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
               <line x1="6" y1="1" x2="6" y2="4"></line>
@@ -269,12 +275,61 @@
 
         <!-- Recents Bar -->
         <div id="recentsBar" class="recents-bar" style="display:none;"></div>
+
+        <!-- Problem-Solution Chat Section (ProjectX-style) -->
+        <section class="problem-solution-section" data-reveal>
+          <div class="chat-bubble-row user" data-reveal="left">
+            <div class="chat-bubble chat-bubble-user">
+              <p>Cramming for an exam? Trying to finish a 40-video course? YouTube tells you how many videos there are,
+                but never the actual total duration or how many hours you save watching at 1.5x speed.</p>
+              <svg class="chat-tail-left" width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+                <path d="M16 0 Q16 12 0 12 Q6 12 8 6 Z" fill="currentColor"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="chat-bubble-row reply" data-reveal="right">
+            <div class="chat-bubble chat-bubble-reply">
+              <p>We fixed that.</p>
+              <svg class="chat-tail-right" width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+                <path d="M0 0 Q0 12 16 12 Q10 12 8 6 Z" fill="currentColor"></path>
+              </svg>
+            </div>
+          </div>
+        </section>
+
+        <!-- Platform Benchmark Stats Strip (ProjectX-style) -->
+        <section class="benchmark-stats-section" data-reveal>
+          <div class="benchmark-stats-card">
+            <div class="benchmark-stats-grid">
+              <div class="benchmark-stat-item" data-reveal="scale" data-delay="1">
+                <span class="benchmark-stat-label">Calculation Speed</span>
+                <span class="benchmark-stat-val">&lt; 1s</span>
+                <span class="benchmark-stat-sub">Instant batch calculation</span>
+              </div>
+              <div class="benchmark-stat-item" data-reveal="scale" data-delay="2">
+                <span class="benchmark-stat-label">Playback Multipliers</span>
+                <span class="benchmark-stat-val">0.5x–3x</span>
+                <span class="benchmark-stat-sub">Continuous speed control</span>
+              </div>
+              <div class="benchmark-stat-item" data-reveal="scale" data-delay="3">
+                <span class="benchmark-stat-label">Batch Engine</span>
+                <span class="benchmark-stat-val">500+</span>
+                <span class="benchmark-stat-sub">Videos per playlist</span>
+              </div>
+              <div class="benchmark-stat-item" data-reveal="scale" data-delay="4">
+                <span class="benchmark-stat-label">Access</span>
+                <span class="benchmark-stat-val">100%</span>
+                <span class="benchmark-stat-sub">Free, zero login required</span>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
 
       <!-- Error Message Card -->
       <div id="errorCard" class="error-card" role="alert">
         <div class="error-content">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="8" x2="12" y2="12"></line>
             <line x1="12" y1="16" x2="12.01" y2="16"></line>
@@ -287,12 +342,21 @@
       <section id="resultsDashboard">
         <!-- Showcase Card (Playlist Overview) -->
         <div class="showcase-card">
+          <div class="window-chrome-bar">
+            <div class="traffic-dots" aria-hidden="true">
+              <span class="traffic-dot traffic-dot-red"></span>
+              <span class="traffic-dot traffic-dot-amber"></span>
+              <span class="traffic-dot traffic-dot-green"></span>
+            </div>
+            <span class="window-title">workspace // playlist-telemetry</span>
+          </div>
           <div class="showcase-header">
             <div class="playlist-thumb-wrapper">
               <img id="playlistThumb" src="" alt="Playlist Thumbnail" class="playlist-thumb-img" />
               <div class="thumb-count-overlay">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
                 </svg>
                 <span id="playlistVideoCount">0</span> videos
               </div>
@@ -300,36 +364,39 @@
             <div class="playlist-meta">
               <div class="channel-tag">
                 <span id="playlistChannel">Channel</span>
-                <svg class="verified-badge" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                <svg class="verified-badge" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
               </div>
               <h2 id="playlistTitle" class="playlist-main-title">Playlist Title</h2>
               <div class="playlist-quick-stats">
                 <div class="quick-stat-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polyline points="12 6 12 12 16 14"></polyline>
                   </svg>
                   <span>Avg video: <strong id="statAvgLength">0m 0s</strong></span>
                 </div>
                 <div class="quick-stat-item">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
                   </svg>
                   <span>Indexed: <strong id="statVideoCountMeta">0 videos</strong></span>
                 </div>
               </div>
               <div class="action-bar">
                 <button type="button" id="copySummaryBtn" class="btn-secondary">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                     <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                   </svg>
                   <span>Copy Summary</span>
                 </button>
                 <a id="ytExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
                     <line x1="10" y1="14" x2="21" y2="3"></line>
@@ -337,7 +404,7 @@
                   <span>Open on YouTube</span>
                 </a>
                 <button type="button" id="resetBtn" class="btn-secondary" title="Calculate another">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
                     <path d="M21 3v5h-5"></path>
                     <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
@@ -353,8 +420,14 @@
         <!-- Total Time Digital Banner -->
         <div class="hero-duration-banner">
           <div class="duration-banner-label">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/>
+            <div class="traffic-dots" aria-hidden="true" style="margin-right: 0.35rem;">
+              <span class="traffic-dot traffic-dot-red"></span>
+              <span class="traffic-dot traffic-dot-amber"></span>
+              <span class="traffic-dot traffic-dot-green"></span>
+            </div>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path
+                d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z" />
             </svg>
             <span id="activeSpeedLabel">Total Watch Duration (1.0x Normal)</span>
           </div>
@@ -392,7 +465,7 @@
         <!-- Playback Speeds Matrix -->
         <div class="section-header-row">
           <h3 class="section-title">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--brand-yt);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color: var(--brand-yt);" aria-hidden="true">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
             </svg>
             Speed Multiplier Comparison
@@ -407,7 +480,7 @@
         <!-- Custom Speed Smooth Slider -->
         <div class="custom-speed-box">
           <div class="custom-speed-info">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <circle cx="12" cy="12" r="10"></circle>
               <polygon points="10 8 16 12 10 16 10 8"></polygon>
             </svg>
@@ -418,7 +491,8 @@
           </div>
           <div class="custom-speed-slider-wrap">
             <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-tertiary);">0.5x</span>
-            <input type="range" id="customSpeedSlider" class="range-slider" min="0.5" max="3.0" step="0.05" value="1.0" aria-label="Adjust playback speed multiplier from 0.5x to 3.0x">
+            <input type="range" id="customSpeedSlider" class="range-slider" min="0.5" max="3.0" step="0.05" value="1.0"
+              aria-label="Adjust playback speed multiplier from 0.5x to 3.0x">
             <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-tertiary);">3.0x</span>
           </div>
           <div class="custom-speed-val" id="customSpeedDisplay">1.00x</div>
@@ -427,7 +501,8 @@
         <!-- Study Planner Estimator -->
         <div class="study-planner-card">
           <h3 class="section-title" style="margin-bottom: 0.25rem;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-emerald);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="color: var(--accent-emerald);" aria-hidden="true">
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
               <line x1="16" y1="2" x2="16" y2="6"></line>
               <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -441,8 +516,10 @@
 
           <div class="study-planner-body">
             <div>
-              <label style="font-size: 0.8rem; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase;">
-                Daily Study Time: <strong id="dailyTimeLabel" style="color: var(--text-primary);">60 minutes/day</strong>
+              <label
+                style="font-size: 0.8rem; font-weight: 700; color: var(--text-tertiary); text-transform: uppercase;">
+                Daily Study Time: <strong id="dailyTimeLabel" style="color: var(--text-primary);">60
+                  minutes/day</strong>
               </label>
               <div class="study-presets">
                 <button type="button" class="study-chip" data-mins="30">30 min/day</button>
@@ -467,7 +544,8 @@
         <!-- Range Filter Box -->
         <div class="range-filter-card">
           <div style="display: flex; align-items: center; gap: 0.75rem;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-purple);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              style="color: var(--accent-purple);" aria-hidden="true">
               <line x1="4" y1="21" x2="4" y2="14"></line>
               <line x1="4" y1="10" x2="4" y2="3"></line>
               <line x1="12" y1="21" x2="12" y2="12"></line>
@@ -480,18 +558,22 @@
             </svg>
             <div>
               <div style="font-weight: 700; font-size: 0.9rem;">Calculate Video Range</div>
-              <div style="font-size: 0.75rem; color: var(--text-tertiary);">Only calculate a specific section of videos</div>
+              <div style="font-size: 0.75rem; color: var(--text-tertiary);">Only calculate a specific section of videos
+              </div>
             </div>
           </div>
           <div class="range-inputs">
             <span style="font-size: 0.85rem; color: var(--text-secondary);">From #</span>
-            <input type="number" id="rangeStart" class="range-num-input" min="1" value="1" aria-label="Start video index number">
+            <input type="number" id="rangeStart" class="range-num-input" min="1" value="1"
+              aria-label="Start video index number">
             <span style="font-size: 0.85rem; color: var(--text-secondary);">to #</span>
-            <input type="number" id="rangeEnd" class="range-num-input" min="1" value="1" aria-label="End video index number">
+            <input type="number" id="rangeEnd" class="range-num-input" min="1" value="1"
+              aria-label="End video index number">
             <button type="button" id="rangeApplyBtn" class="btn-secondary" style="padding: 0.4rem 0.85rem;">
               Apply Range
             </button>
-            <button type="button" id="rangeResetBtn" class="btn-secondary" style="padding: 0.4rem 0.65rem;" title="Reset range to all videos">
+            <button type="button" id="rangeResetBtn" class="btn-secondary" style="padding: 0.4rem 0.65rem;"
+              title="Reset range to all videos">
               All
             </button>
           </div>
@@ -503,7 +585,7 @@
             <div class="insight-card-top">
               <span>Avg Video Duration</span>
               <div class="insight-icon" style="color: var(--accent-cyan);">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
@@ -517,7 +599,7 @@
             <div class="insight-card-top">
               <span>Shortest Video</span>
               <div class="insight-icon" style="color: var(--accent-emerald);">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                 </svg>
               </div>
@@ -530,7 +612,7 @@
             <div class="insight-card-top">
               <span>Longest Video</span>
               <div class="insight-icon" style="color: var(--accent-amber);">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polygon points="10 8 16 12 10 16 10 8"></polygon>
                 </svg>
@@ -544,7 +626,7 @@
             <div class="insight-card-top">
               <span>Total Available</span>
               <div class="insight-icon" style="color: var(--brand-yt);">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                   <polyline points="22 4 12 14.01 9 11.01"></polyline>
                 </svg>
@@ -557,9 +639,15 @@
 
         <!-- Video List Drawer -->
         <div class="video-list-container">
-          <button type="button" class="video-list-header" id="videoListHeader" aria-expanded="true" aria-controls="videoListDrawer">
+          <button type="button" class="video-list-header" id="videoListHeader" aria-expanded="true"
+            aria-controls="videoListDrawer">
             <div class="video-list-title-group">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <div class="traffic-dots" aria-hidden="true" style="margin-right: 0.35rem;">
+                <span class="traffic-dot traffic-dot-red"></span>
+                <span class="traffic-dot traffic-dot-amber"></span>
+                <span class="traffic-dot traffic-dot-green"></span>
+              </div>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <line x1="8" y1="6" x2="21" y2="6"></line>
                 <line x1="8" y1="12" x2="21" y2="12"></line>
                 <line x1="8" y1="18" x2="21" y2="18"></line>
@@ -570,18 +658,22 @@
               <span class="video-list-title-text">Individual Videos Breakdown</span>
               <span class="list-count-badge" id="videoListBadge">0</span>
             </div>
-            <svg id="chevronIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="transition: transform 0.2s;" aria-hidden="true">
+            <svg id="chevronIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" style="transition: transform 0.2s;" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
 
           <div id="videoListDrawer" style="display:block;">
             <div class="video-search-wrap">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--text-tertiary);" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color: var(--text-tertiary);" aria-hidden="true">
                 <circle cx="11" cy="11" r="8"></circle>
                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
               </svg>
-              <input type="text" id="videoSearchInput" class="video-search-input" placeholder="Filter videos in this playlist by title..." aria-label="Filter videos in this playlist by title" />
+              <input type="text" id="videoSearchInput" class="video-search-input"
+                placeholder="Filter videos in this playlist by title..."
+                aria-label="Filter videos in this playlist by title" />
             </div>
 
             <div class="video-items-scroll" id="videoItemsList">
@@ -594,10 +686,12 @@
       <!-- Static SEO Knowledge & FAQ Sections (Pre-rendered for Search Engines & Users) -->
       <div class="seo-content-wrapper">
         <!-- Section 1: How It Works -->
-        <section class="seo-block">
+        <section class="seo-block" data-reveal>
           <div class="seo-block-header">
+            <span class="section-eyebrow">HOW IT WORKS // 01</span>
             <h2 class="seo-block-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--brand-yt);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color: var(--brand-yt);" aria-hidden="true">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
               </svg>
               How It Works
@@ -605,48 +699,104 @@
             <p class="seo-block-subtitle">Calculate YouTube playlist length in three simple steps.</p>
           </div>
           <div class="seo-steps-grid">
-            <div class="seo-step-card">
-              <span class="seo-step-badge">STEP 01</span>
-              <h3 class="seo-card-title">Paste Playlist URL or ID</h3>
-              <p class="seo-card-text">Copy any public or unlisted YouTube playlist link from your browser or mobile app and paste it into the calculator.</p>
+            <div class="seo-step-card" data-reveal data-delay="1">
+              <div class="step-card-chrome">
+                <div class="traffic-dots" aria-hidden="true">
+                  <span class="traffic-dot traffic-dot-red"></span>
+                  <span class="traffic-dot traffic-dot-amber"></span>
+                  <span class="traffic-dot traffic-dot-green"></span>
+                </div>
+              </div>
+              <div class="step-card-visual" aria-hidden="true">
+                <div class="mini-input-mock">
+                  <span class="mock-prefix">https://</span>youtube.com/playlist?list=PL...
+                </div>
+              </div>
+              <div class="step-card-content">
+                <span class="seo-step-badge">STEP 01</span>
+                <h3 class="seo-card-title">Paste Playlist URL or ID</h3>
+                <p class="seo-card-text">Copy any public or unlisted YouTube playlist link from your browser or mobile
+                  app
+                  and paste it into the calculator.</p>
+              </div>
             </div>
-            <div class="seo-step-card">
-              <span class="seo-step-badge">STEP 02</span>
-              <h3 class="seo-card-title">Instant API Duration Analysis</h3>
-              <p class="seo-card-text">PlayPulse communicates with the official YouTube Data API v3 to aggregate exact durations for all videos in seconds.</p>
+
+            <div class="seo-step-card" data-reveal data-delay="2">
+              <div class="step-card-chrome">
+                <div class="traffic-dots" aria-hidden="true">
+                  <span class="traffic-dot traffic-dot-red"></span>
+                  <span class="traffic-dot traffic-dot-amber"></span>
+                  <span class="traffic-dot traffic-dot-green"></span>
+                </div>
+              </div>
+              <div class="step-card-visual" aria-hidden="true">
+                <div class="mini-telemetry-mock">
+                  <span class="telemetry-pulse"></span>
+                  <span>batch parsing ISO-8601 durations...</span>
+                </div>
+              </div>
+              <div class="step-card-content">
+                <span class="seo-step-badge">STEP 02</span>
+                <h3 class="seo-card-title">Instant API Duration Analysis</h3>
+                <p class="seo-card-text">PlayPulse communicates with the official YouTube Data API v3 to aggregate exact
+                  durations for all videos in seconds.</p>
+              </div>
             </div>
-            <div class="seo-step-card">
-              <span class="seo-step-badge">STEP 03</span>
-              <h3 class="seo-card-title">Compare Speeds & Plan Schedule</h3>
-              <p class="seo-card-text">Explore 1.25x to 2.0x playback speed comparisons, filter video ranges, and calculate daily study completion dates.</p>
+
+            <div class="seo-step-card" data-reveal data-delay="3">
+              <div class="step-card-chrome">
+                <div class="traffic-dots" aria-hidden="true">
+                  <span class="traffic-dot traffic-dot-red"></span>
+                  <span class="traffic-dot traffic-dot-amber"></span>
+                  <span class="traffic-dot traffic-dot-green"></span>
+                </div>
+              </div>
+              <div class="step-card-visual" aria-hidden="true">
+                <div class="mini-speeds-mock">
+                  <span class="mini-speed-pill">1.25x</span>
+                  <span class="mini-speed-pill active">1.50x</span>
+                  <span class="mini-speed-pill">2.00x</span>
+                </div>
+              </div>
+              <div class="step-card-content">
+                <span class="seo-step-badge">STEP 03</span>
+                <h3 class="seo-card-title">Compare Speeds & Plan Schedule</h3>
+                <p class="seo-card-text">Explore 1.25x to 2.0x playback speed comparisons, filter video ranges, and
+                  calculate daily study completion dates.</p>
+              </div>
             </div>
           </div>
         </section>
 
         <!-- Section 2: Why PlayPulse Features -->
-        <section class="seo-block">
+        <section class="seo-block" data-reveal>
           <div class="seo-block-header">
+            <span class="section-eyebrow">CAPABILITIES // 02</span>
             <h2 class="seo-block-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-emerald);">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color: var(--accent-emerald);" aria-hidden="true">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
+                </path>
               </svg>
               Key Features for Students & Creators
             </h2>
-            <p class="seo-block-subtitle">Designed for exam cramming, online courses, tutorials, and binge-watching planning.</p>
+            <p class="seo-block-subtitle">Designed for exam cramming, online courses, tutorials, and binge-watching
+              planning.</p>
           </div>
           <div class="seo-features-grid">
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: var(--brand-yt);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
                 </svg>
               </div>
               <h3 class="seo-card-title">Multi-Speed Comparisons</h3>
-              <p class="seo-card-text">See exactly how much time you save at 1.25x, 1.5x, 1.75x, or 2.0x speeds with a continuous 0.5x–3.0x custom slider.</p>
+              <p class="seo-card-text">See exactly how much time you save at 1.25x, 1.5x, 1.75x, or 2.0x speeds with a
+                continuous 0.5x–3.0x custom slider.</p>
             </div>
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: var(--accent-cyan);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                   <line x1="16" y1="2" x2="16" y2="6"></line>
                   <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -654,11 +804,12 @@
                 </svg>
               </div>
               <h3 class="seo-card-title">Daily Study Planner</h3>
-              <p class="seo-card-text">Input how many minutes or hours you study each day to get an exact target finish date for courses and exams.</p>
+              <p class="seo-card-text">Input how many minutes or hours you study each day to get an exact target finish
+                date for courses and exams.</p>
             </div>
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: var(--accent-purple);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <line x1="4" y1="21" x2="4" y2="14"></line>
                   <line x1="4" y1="10" x2="4" y2="3"></line>
                   <line x1="12" y1="21" x2="12" y2="12"></line>
@@ -671,45 +822,51 @@
                 </svg>
               </div>
               <h3 class="seo-card-title">Custom Range Selection</h3>
-              <p class="seo-card-text">Need to calculate only chapters 5 through 18? Select any sub-range or toggle individual videos on and off.</p>
+              <p class="seo-card-text">Need to calculate only chapters 5 through 18? Select any sub-range or toggle
+                individual videos on and off.</p>
             </div>
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: var(--accent-amber);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <circle cx="12" cy="12" r="10"></circle>
                   <polyline points="12 6 12 12 16 14"></polyline>
                 </svg>
               </div>
               <h3 class="seo-card-title">Deep Analytics & Insights</h3>
-              <p class="seo-card-text">Analyze average video length, locate the longest and shortest videos in the playlist, and track total indexed count.</p>
+              <p class="seo-card-text">Analyze average video length, locate the longest and shortest videos in the
+                playlist, and track total indexed count.</p>
             </div>
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: var(--accent-emerald);">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
                   <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
                 </svg>
               </div>
               <h3 class="seo-card-title">One-Click Summary Export</h3>
-              <p class="seo-card-text">Copy formatted emoji summaries to your clipboard for Discord, Slack, Notion, or your personal study notes.</p>
+              <p class="seo-card-text">Copy formatted emoji summaries to your clipboard for Discord, Slack, Notion, or
+                your personal study notes.</p>
             </div>
             <div class="seo-feature-card">
               <div class="seo-feature-icon" style="color: #60a5fa;">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                 </svg>
               </div>
               <h3 class="seo-card-title">500+ Video Batch Engine</h3>
-              <p class="seo-card-text">Directly integrated with YouTube Data API v3 with automatic pagination handling massive series in milliseconds.</p>
+              <p class="seo-card-text">Directly integrated with YouTube Data API v3 with automatic pagination handling
+                massive series in milliseconds.</p>
             </div>
           </div>
         </section>
 
         <!-- Section 3: Frequently Asked Questions (FAQ) -->
-        <section class="seo-block">
+        <section class="seo-block" data-reveal>
           <div class="seo-block-header">
+            <span class="section-eyebrow">FAQs // 03</span>
             <h2 class="seo-block-title">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--accent-purple);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                style="color: var(--accent-purple);" aria-hidden="true">
                 <circle cx="12" cy="12" r="10"></circle>
                 <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                 <line x1="12" y1="17" x2="12.01" y2="17"></line>
@@ -722,60 +879,73 @@
             <details class="faq-item" open>
               <summary class="faq-summary">
                 <span>How do I calculate the total duration of a YouTube playlist?</span>
-                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
               <div class="faq-answer">
-                Simply copy the YouTube playlist URL from your browser address bar or share sheet (for example <code>https://youtube.com/playlist?list=PL...</code>) or paste the raw playlist ID, paste it into the PlayPulse search bar, and click <strong>Calculate Time</strong>. PlayPulse connects to the YouTube Data API v3 to retrieve every video's duration and sums them up instantly.
+                Simply copy the YouTube playlist URL from your browser address bar or share sheet (for example
+                <code>https://youtube.com/playlist?list=PL...</code>) or paste the raw playlist ID, paste it into the
+                PlayPulse search bar, and click <strong>Calculate Time</strong>. PlayPulse connects to the YouTube Data
+                API v3 to retrieve every video's duration and sums them up instantly.
               </div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-summary">
                 <span>How does the playback speed multiplier calculate time saved?</span>
-                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
               <div class="faq-answer">
-                When you watch at accelerated speeds, the total watch duration is divided by the speed multiplier (e.g. <code>Total Duration ÷ 1.5</code>). The time saved is the difference between normal runtime (1.0x) and the accelerated runtime. PlayPulse automatically presents time saved for 1.25x, 1.5x, 1.75x, 2.0x, and any custom speed on the slider.
+                When you watch at accelerated speeds, the total watch duration is divided by the speed multiplier (e.g.
+                <code>Total Duration ÷ 1.5</code>). The time saved is the difference between normal runtime (1.0x) and
+                the accelerated runtime. PlayPulse automatically presents time saved for 1.25x, 1.5x, 1.75x, 2.0x, and
+                any custom speed on the slider.
               </div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-summary">
                 <span>Can I calculate the duration for a specific range or subset of videos?</span>
-                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
               <div class="faq-answer">
-                Yes. PlayPulse offers two ways to calculate subsets: use the <strong>Range Filter</strong> to calculate between video #X and video #Y, or open the <strong>Individual Videos Breakdown</strong> drawer to check or uncheck individual videos in real time.
+                Yes. PlayPulse offers two ways to calculate subsets: use the <strong>Range Filter</strong> to calculate
+                between video #X and video #Y, or open the <strong>Individual Videos Breakdown</strong> drawer to check
+                or uncheck individual videos in real time.
               </div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-summary">
                 <span>How does the Daily Study Schedule Planner work?</span>
-                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
               <div class="faq-answer">
-                The Study Schedule Planner takes your effective playlist duration (taking into account your chosen playback speed and selected videos) and divides it by your daily study time (such as 30, 60, 120, or 180 minutes/day). It then projects the exact number of days required and your estimated finish date on the calendar.
+                The Study Schedule Planner takes your effective playlist duration (taking into account your chosen
+                playback speed and selected videos) and divides it by your daily study time (such as 30, 60, 120, or 180
+                minutes/day). It then projects the exact number of days required and your estimated finish date on the
+                calendar.
               </div>
             </details>
 
             <details class="faq-item">
               <summary class="faq-summary">
                 <span>Why are some videos excluded or missing from the total duration?</span>
-                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <svg class="faq-summary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                   <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
               </summary>
               <div class="faq-answer">
-                Videos that are marked as <strong>Private</strong>, <strong>Deleted</strong>, or <strong>Region-Restricted</strong> by YouTube do not expose duration metadata through the YouTube API. PlayPulse gracefully skips these placeholder items and computes the runtime of all accessible videos.
+                Videos that are marked as <strong>Private</strong>, <strong>Deleted</strong>, or
+                <strong>Region-Restricted</strong> by YouTube do not expose duration metadata through the YouTube API.
+                PlayPulse gracefully skips these placeholder items and computes the runtime of all accessible videos.
               </div>
             </details>
           </div>
@@ -788,15 +958,21 @@
       <div class="container footer-content">
         <div class="footer-left">
           <div>
-            <strong>PlayPulse</strong> &copy; 2026 • Built with ❤️ by <a href="https://lordnydorf.github.io/Portfolio/" target="_blank" rel="noopener noreferrer" class="footer-author-link">Rohit Krishnan</a>
+            <strong>PlayPulse</strong> &copy; 2026 • Built with ❤️ by <a href="https://lordnydorf.github.io/Portfolio/"
+              target="_blank" rel="noopener noreferrer" class="footer-author-link">Rohit Krishnan</a>
           </div>
           <div class="footer-compliance">
-            This tool uses YouTube API Services. By using PlayPulse, you agree to be bound by the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of Service</a> and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.
+            This tool uses YouTube API Services. By using PlayPulse, you agree to be bound by the <a
+              href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of
+              Service</a> and <a href="https://policies.google.com/privacy" target="_blank"
+              rel="noopener noreferrer">Google Privacy Policy</a>.
           </div>
         </div>
         <div class="footer-links">
-          <a href="https://buymeacoffee.com/lordnydorf" target="_blank" rel="noopener noreferrer" class="footer-bmac-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <a href="https://buymeacoffee.com/lordnydorf" target="_blank" rel="noopener noreferrer"
+            class="footer-bmac-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
               <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
               <line x1="6" y1="1" x2="6" y2="4"></line>
@@ -808,7 +984,8 @@
           <span class="footer-separator">•</span>
           <button type="button" id="openPrivacyModalBtn" class="footer-modal-link">Privacy &amp; Terms</button>
           <span class="footer-separator">•</span>
-          <a href="https://github.com/LordNydorf/YTplaylistCalc" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub</a>
+          <a href="https://github.com/LordNydorf/YTplaylistCalc" target="_blank" rel="noopener noreferrer"
+            class="footer-link">GitHub</a>
         </div>
       </div>
     </footer>
@@ -818,12 +995,14 @@
   <div id="a11yStatus" class="sr-only" role="status" aria-live="polite"></div>
 
   <!-- Privacy & Terms Modal -->
-  <div id="legalModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div id="legalModal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true"
+    aria-labelledby="modalTitle">
     <div class="modal-card">
       <div class="modal-header">
         <h3 id="modalTitle" class="modal-title">Privacy Policy &amp; Terms</h3>
         <button type="button" id="closeModalBtn" class="modal-close-btn" aria-label="Close privacy and terms modal">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"></line>
             <line x1="6" y1="6" x2="18" y2="18"></line>
           </svg>
@@ -831,16 +1010,23 @@
       </div>
       <div class="modal-body">
         <h4>1. YouTube API Services</h4>
-        <p>PlayPulse connects to YouTube API Services to retrieve publicly available playlist and video metadata (such as titles, channel names, thumbnails, and durations). PlayPulse does not store, collect, or share personal YouTube user data.</p>
-        
+        <p>PlayPulse connects to YouTube API Services to retrieve publicly available playlist and video metadata (such
+          as titles, channel names, thumbnails, and durations). PlayPulse does not store, collect, or share personal
+          YouTube user data.</p>
+
         <h4>2. Data Collection &amp; Cookies</h4>
-        <p>PlayPulse stores your recent calculation history and dark/light theme preference locally on your device via browser <code>localStorage</code>. No personal identifiable information (PII) is sold or transferred to third parties.</p>
-        
+        <p>PlayPulse stores your recent calculation history and dark/light theme preference locally on your device via
+          browser <code>localStorage</code>. No personal identifiable information (PII) is sold or transferred to third
+          parties.</p>
+
         <h4>3. Third-Party Services</h4>
-        <p>By using this service, you agree to the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">YouTube Terms of Service</a> and the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
-        
+        <p>By using this service, you agree to the <a href="https://www.youtube.com/t/terms" target="_blank"
+            rel="noopener noreferrer">YouTube Terms of Service</a> and the <a href="https://policies.google.com/privacy"
+            target="_blank" rel="noopener noreferrer">Google Privacy Policy</a>.</p>
+
         <h4>4. Disclaimer</h4>
-        <p>PlayPulse is an independent utility tool and is not affiliated with, endorsed by, or sponsored by YouTube, Google LLC, or Alphabet Inc.</p>
+        <p>PlayPulse is an independent utility tool and is not affiliated with, endorsed by, or sponsored by YouTube,
+          Google LLC, or Alphabet Inc.</p>
       </div>
       <div class="modal-footer">
         <button type="button" id="modalOkBtn" class="btn-primary" style="padding: 0.5rem 1.25rem;">Got it</button>
@@ -853,4 +1039,5 @@
 
   <script src="/app.js" defer></script>
 </body>
+
 </html>

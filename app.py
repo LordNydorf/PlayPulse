@@ -121,6 +121,11 @@ def format_time_saved(original_seconds, speed_seconds):
 def fetch_playlist_data(playlist_id):
     api_key = os.getenv('YOUTUBE_API_KEY')
     if not api_key:
+        # Dynamically reload in case .env was created or updated while server was running
+        load_dotenv(override=True)
+        api_key = os.getenv('YOUTUBE_API_KEY')
+
+    if not api_key:
         return {'error': 'YouTube API key is missing. Please set YOUTUBE_API_KEY in your .env file.'}
 
     # 1. Fetch Playlist Metadata (Title, Channel, Thumbnail)
